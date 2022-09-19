@@ -3,7 +3,7 @@ const router = express.Router();
 const mysql = require('../mysql').pool;
 const { response } = require('express');
 
-router.post('/Relatorios', (req, res, next) => {
+router.post('/', (req, res, next) => {
 
     mysql.getConnection((error, conn) => {
         if (error) {
@@ -12,8 +12,8 @@ router.post('/Relatorios', (req, res, next) => {
             })
         }
         
-            const query = `SELECT * FROM Relatorios WHERE idTitulo = ?;`;
-            conn.query(query, [req.body.idTitulo], (error, resultado, fields) => {
+            const query = `SELECT * FROM Relatorios WHERE chave = ?;`;
+            conn.query(query, [req.body.chave], (error, resultado, fields) => {
                 conn.release();
 
                 if (error) {
@@ -44,3 +44,5 @@ router.post('/Relatorios', (req, res, next) => {
         
 
     });
+});
+    module.exports = router;
